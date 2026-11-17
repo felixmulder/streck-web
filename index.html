@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#ffffff">
+    <title>Streck</title>
+    <base href="/streck-web/">
+    
+<script type="module">
+import init, * as bindings from '/streck-web/streck-web-746769145bed2b50.js';
+const wasm = await init({ module_or_path: '/streck-web/streck-web-4016ef1e32fef073_bg.wasm' });
+
+
+window.wasmBindings = bindings;
+
+
+dispatchEvent(new CustomEvent("TrunkApplicationStarted", {detail: {wasm}}));
+
+</script>
+    <style>
+      html, body { width: 100%; height: 100%; margin: 0; overflow: hidden; background: white; }
+      #streck { display: block; width: 100%; height: 100%; touch-action: none; }
+      #startup { position: fixed; inset: 0; display: grid; place-content: center; padding: 2rem; font: 1rem sans-serif; }
+      #startup[hidden] { display: none; }
+    </style>
+  <link rel="modulepreload" href="/streck-web/streck-web-746769145bed2b50.js" crossorigin="anonymous" integrity="sha384-KnGdY6l7weBfqcIuBpB/iFbAemd5wcKwAgjSYuQWyHnUk3Sjb+i5UcgjL29gAdBx"><link rel="preload" href="/streck-web/streck-web-4016ef1e32fef073_bg.wasm" crossorigin="anonymous" integrity="sha384-UYRxMAT2qsyFAfJN/qalxB0DPLgIynmxGBb1WlAFEl8Jo1Zwu8RgZiEfrnCVfQ5K" as="fetch" type="application/wasm"></head>
+  <body>
+    <canvas id="streck" aria-label="Streck floor-plan editor"></canvas>
+    <div id="startup" role="status">
+      <p id="startup-message">Loading Streck…</p>
+      <noscript>Enable JavaScript to use Streck.</noscript>
+    </div>
+    <script>
+      const startup = document.getElementById("startup");
+      function showStartupError(error) {
+        console.error("Streck could not start", error);
+        document.getElementById("startup-message").textContent =
+          "Streck could not start. Check your connection and that WebGL is enabled, then reload.";
+        startup.hidden = false;
+      }
+      window.addEventListener("error", (event) => showStartupError(event.error || event.message), true);
+      window.addEventListener("unhandledrejection", (event) => showStartupError(event.reason));
+      window.addEventListener("TrunkApplicationStarted", async () => {
+        try {
+          // Keep the runner alive for the lifetime of the page.
+          window.streck = new window.wasmBindings.WebHandle();
+          await window.streck.start(document.getElementById("streck"));
+          startup.hidden = true;
+        } catch (error) {
+          showStartupError(error);
+        }
+      }, { once: true });
+    </script>
+  </body>
+</html>
