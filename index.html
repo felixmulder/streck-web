@@ -8,8 +8,8 @@
     <base href="/streck-web/">
     
 <script type="module">
-import init, * as bindings from '/streck-web/streck-web-ec715ce82c736e3f.js';
-const wasm = await init({ module_or_path: '/streck-web/streck-web-6e520108c6384fdc_bg.wasm' });
+import init, * as bindings from '/streck-web/streck-web-7c66b4afb77cbca9.js';
+const wasm = await init({ module_or_path: '/streck-web/streck-web-caab756a348d1a2f_bg.wasm' });
 
 
 window.wasmBindings = bindings;
@@ -24,7 +24,7 @@ dispatchEvent(new CustomEvent("TrunkApplicationStarted", {detail: {wasm}}));
       #startup { position: fixed; inset: 0; display: grid; place-content: center; padding: 2rem; font: 1rem sans-serif; }
       #startup[hidden] { display: none; }
     </style>
-  <link rel="modulepreload" href="/streck-web/streck-web-ec715ce82c736e3f.js" crossorigin="anonymous" integrity="sha384-fkRAP12eigHOY8htbguZICqrOmkyg2UN1E1HcZ0bdmyCtNX3RBI+fdh75Bc1EaB6"><link rel="preload" href="/streck-web/streck-web-6e520108c6384fdc_bg.wasm" crossorigin="anonymous" integrity="sha384-KQYCmI7T6O61I2TCKEnDwqcGTxvs/ecv2UiyT0vYrM5z87lCXoIs42NhiEx80Ujw" as="fetch" type="application/wasm"></head>
+  <link rel="modulepreload" href="/streck-web/streck-web-7c66b4afb77cbca9.js" crossorigin="anonymous" integrity="sha384-adbhnHah7VUuJPSMLYM/g6kyPK603Q38uK3Nes7+JLgPWJkrpXSIQH1pyLaRE5K4"><link rel="preload" href="/streck-web/streck-web-caab756a348d1a2f_bg.wasm" crossorigin="anonymous" integrity="sha384-9LhEAgRGmkBxDIciA+9vv0aBo2I/yYqS9VRcqChN9Bnjf/Z7f+x8Nuh44Z2SyNX8" as="fetch" type="application/wasm"></head>
   <body>
     <canvas id="streck" aria-label="Streck floor-plan editor"></canvas>
     <div id="startup" role="status">
