@@ -19,8 +19,13 @@ dispatchEvent(new CustomEvent("TrunkApplicationStarted", {detail: {wasm}}));
 
 </script>
     <style>
-      html, body { width: 100%; height: 100%; margin: 0; overflow: hidden; background: white; }
+      /* Gestures belong to the editor, including over its hidden text input. */
+      html, body { width: 100%; height: 100%; margin: 0; overflow: hidden; background: white; touch-action: none; }
       #streck { display: block; width: 100%; height: 100%; touch-action: none; }
+      /* eframe adds a hidden input to body for the mobile keyboard. A small
+         browser-default font makes iOS zoom the page when that input focuses.
+         This does not change the text drawn by egui on the canvas. */
+      body > input { font-size: 16px; touch-action: none; }
       #startup { position: fixed; inset: 0; display: grid; place-content: center; padding: 2rem; font: 1rem sans-serif; }
       #startup[hidden] { display: none; }
     </style>
